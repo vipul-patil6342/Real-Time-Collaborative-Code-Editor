@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: collab_postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: collab_editor
+      POSTGRES_USER: vipul
+      POSTGRES_PASSWORD: "@Vipul6342"
+      TZ: Asia/Kolkata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
