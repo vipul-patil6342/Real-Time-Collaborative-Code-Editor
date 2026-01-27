@@ -1,0 +1,23 @@
+package com.vipulpatil.code_editor.error;
+
+import lombok.Data;
+import org.springframework.http.HttpStatus;
+
+import java.time.LocalDateTime;
+
+@Data
+public class ApiError {
+    private String message;
+    private int status;
+    private LocalDateTime timestamp;
+
+    public ApiError(){
+        this.timestamp = LocalDateTime.now();
+    }
+
+    public ApiError(String message, HttpStatus status){
+        this();
+        this.message = message;
+        this.status = status.value();
+    }
+}

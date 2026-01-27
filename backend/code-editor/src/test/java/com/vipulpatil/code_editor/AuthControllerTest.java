@@ -47,7 +47,7 @@ public class AuthControllerTest {
         )
                 .andExpect(status().isOk());
 
-        User savedUser = userRepository.findByUsername("user")
+        User savedUser = userRepository.findByUsernameOrEmail("user")
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         assertEquals("user@gmail.com",savedUser.getEmail());
