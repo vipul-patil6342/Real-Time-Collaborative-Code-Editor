@@ -32,7 +32,9 @@ public class JwtFilter extends OncePerRequestFilter {
             "/auth/state",
             "/auth/refresh",
             "/otp/send",
-            "/otp/verify"
+            "/otp/verify",
+            "/auth/forgot-password",
+            "/auth/reset-password"
     );
 
     @Override
