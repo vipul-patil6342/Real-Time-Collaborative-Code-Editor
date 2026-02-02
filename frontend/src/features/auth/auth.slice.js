@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { forgotPassword, loginUser, sendOtp, signupUser, verifyOtp } from "./auth.thunk";
+import { forgotPassword, getAuthState, loginUser, sendOtp, signupUser, verifyOtp } from "./auth.thunk";
 
 const initialState = {
-    loading: false,
+    loading: true,
     user: null,
     error: null,
     email: null,
     isAuthenticated: false,
-    successMessage : null,
+    successMessage: null,
 }
 
 const authSlice = createSlice({
@@ -76,6 +76,16 @@ const authSlice = createSlice({
                 state.error = null;
             })
             .addCase(forgotPassword.rejected, rejected)
+
+            //auth state
+            .addCase(getAuthState.pending, pending)
+            .addCase(getAuthState.fulfilled, (state, action) => {
+                state.loading = false;
+                state.error = null;
+                state.isAuthenticated = action.payload.authenticated;
+                state.user = action.payload.username;
+            })
+            .addCase(getAuthState.rejected, rejected)
     }
 })
 

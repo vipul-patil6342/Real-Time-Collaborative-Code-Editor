@@ -73,3 +73,16 @@ export const resetPassword = createAsyncThunk(
         }
     }
 )
+
+export const getAuthState = createAsyncThunk(
+    'auth/getAuthState',
+    async (_, thunkAPI) => {
+        try {
+            const response = await axiosInstance.get("/auth/state");
+            console.log(response.data);
+            return response.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(errorMessage(error));
+        }
+    }
+)

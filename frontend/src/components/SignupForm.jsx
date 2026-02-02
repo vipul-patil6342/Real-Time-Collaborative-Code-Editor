@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Mail, Lock, Eye, EyeOff, User } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendOtp, signupUser } from '../features/auth/auth.thunk';
@@ -20,6 +20,11 @@ const SignupForm = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    useEffect(() => {        
+        dispatch(resetError());
+    }, [dispatch]);
+    
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -94,6 +99,7 @@ const SignupForm = () => {
                                 <input
                                     name='username'
                                     type="text"
+                                    autoComplete='username'
                                     value={formData.username}
                                     onChange={handleChange}
                                     placeholder="john_dev"
@@ -111,6 +117,7 @@ const SignupForm = () => {
                                 <input
                                     name='email'
                                     type="email"
+                                    autoComplete='email'
                                     value={formData.email}
                                     onChange={handleChange}
                                     placeholder="you@example.com"
@@ -128,6 +135,7 @@ const SignupForm = () => {
                                 <input
                                     name='password'
                                     type={showPassword ? 'text' : 'password'}
+                                    autoComplete='new-password'
                                     value={formData.password}
                                     onChange={handleChange}
                                     placeholder="••••••••"
@@ -152,6 +160,7 @@ const SignupForm = () => {
                                 <input
                                     name='confirmPassword'
                                     type={showConfirmPassword ? 'text' : 'password'}
+                                    autoComplete='new-password'
                                     value={formData.confirmPassword}
                                     onChange={handleChange}
                                     placeholder="••••••••"

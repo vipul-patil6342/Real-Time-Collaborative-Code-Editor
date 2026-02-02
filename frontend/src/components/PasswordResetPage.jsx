@@ -101,7 +101,7 @@ const PasswordResetPage = () => {
             setConfirmPassword("");
             showSuccess("Password changed successfully. Redirecting to login...");
             navigate("/login");
-        }else{
+        } else {
             setValidationError('Invalid OTP. Please try again.');
         }
     };
@@ -116,7 +116,7 @@ const PasswordResetPage = () => {
                     <div className="text-center mb-6">
                         <h1 className="text-2xl font-bold mb-1">Reset Password</h1>
                         <p className="text-sm text-slate-400">
-                            Enter the OTP sent to your email and set a new password
+                            Enter your email to receive an OTP, verify the code, and set your new password.
                         </p>
                     </div>
 

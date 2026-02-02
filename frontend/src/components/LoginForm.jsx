@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { forgotPassword, loginUser } from '../features/auth/auth.thunk';
 import { useNavigate } from 'react-router-dom';
 import { showSuccess } from '../utils/toast';
+import { resetError } from '../features/auth/auth.slice';
 
 const LoginForm = () => {
     const [identity, setIdentity] = useState('');
@@ -15,8 +16,14 @@ const LoginForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    useEffect(() => {
+        dispatch(resetError());
+    }, [dispatch]);
+
     const handleLogin = async (e) => {
         e.preventDefault();
+
+        setValidationError("");
 
         if (!identity) {
             setValidationError("Email or Username is required");
@@ -64,6 +71,7 @@ const LoginForm = () => {
                                 <input
                                     type="text"
                                     value={identity}
+                                    autoComplete='email'
                                     onChange={(e) => setIdentity(e.target.value)}
                                     placeholder="Username or Email"
                                     className="w-full pl-12 pr-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 transition-all"
@@ -80,6 +88,7 @@ const LoginForm = () => {
                                 <input
                                     type={showPassword ? 'text' : 'password'}
                                     value={password}
+                                    autoComplete='current-password'
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder="••••••••"
                                     className="w-full pl-12 pr-12 py-3 bg-slate-900/50 border border-slate-700 rounded-lg focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 transition-all"
