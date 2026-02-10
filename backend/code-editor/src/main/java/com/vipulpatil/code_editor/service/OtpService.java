@@ -45,7 +45,6 @@ public class OtpService {
                 OTP_EXPIRY_MINUTES,
                 TimeUnit.MINUTES
         );
-        log.info("OTP is : {}" , hashedOtp);
         return otp;
     }
 
