@@ -1,5 +1,6 @@
 package com.vipulpatil.code_editor.controller;
 
+import com.vipulpatil.code_editor.annotation.RateLimit;
 import com.vipulpatil.code_editor.dto.OtpRequest;
 import com.vipulpatil.code_editor.dto.OtpVerifyRequest;
 import com.vipulpatil.code_editor.service.EmailService;
@@ -21,6 +22,7 @@ public class OtpController {
     private final OtpService otpService;
 
     @PostMapping("/send")
+    @RateLimit(limit = 1 , window = 60)
     public ResponseEntity<String> sendEmail(@Valid @RequestBody OtpRequest request){
         try{
             String otp = otpService.generateAndSaveOtp(request.getEmail());
@@ -38,6 +40,7 @@ public class OtpController {
     }
 
     @PostMapping("/verify")
+    @RateLimit(limit = 5, window = 60)
     public ResponseEntity<String> verifyOtp(@Valid @RequestBody OtpVerifyRequest request){
         boolean isValid = otpService.verifyOtpAndMarkEmailVerified(request.getEmail(), request.getOtp());
 
